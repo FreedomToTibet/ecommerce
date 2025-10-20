@@ -32,7 +32,7 @@ export class ProductService {
     return products;
   }
 
-  async getProduct(id: string): Promise<Product> {
+  async getProduct(id: string): Promise<Product | null> {
     const product = await this.productModel.findById(id).exec();
     return product;
   }
@@ -42,14 +42,14 @@ export class ProductService {
     return newProduct.save();
   }
 
-  async updateProduct(id: string, createProductDTO: CreateProductDTO): Promise<Product> {
+  async updateProduct(id: string, createProductDTO: CreateProductDTO): Promise<Product | null> {
     const updatedProduct = await this.productModel
       .findByIdAndUpdate(id, createProductDTO, { new: true });
     return updatedProduct;
   }
 
   async deleteProduct(id: string): Promise<any> {
-    const deletedProduct = await this.productModel.findByIdAndRemove(id);
+    const deletedProduct = await this.productModel.findByIdAndDelete(id);
     return deletedProduct;
   }
 }
